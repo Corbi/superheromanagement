@@ -3,9 +3,7 @@ package com.corbi.superheromanagement.model;
 import lombok.Data;
 
 @Data
-public class Superhero {
+public class Team {
     int id;
     String nombre;
-    String poder;
-    Team equipo;
 }

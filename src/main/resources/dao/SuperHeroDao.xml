@@ -4,14 +4,56 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.corbi.superheromanagement.dao.ISuperHeroDao">
     <select id="getSuperHeroById" resultMap="mapBasic" >
-        select * from SUPERHEROS
+        SELECT SH.ID,SH.NAME,SH.POWER,TE.ID AS TEAM_ID,TE.NAME AS TEAM_NAME from SUPERHEROS SH
+        LEFT JOIN TEAMS TE ON (SH.TEAM = TE.ID)
+        <where>
+            SH.ID = #{id}
+        </where>
+    </select>
+
+    <select id="getAll" resultMap="mapBasic" >
+        SELECT SH.ID,SH.NAME,SH.POWER,TE.ID AS TEAM_ID,TE.NAME AS TEAM_NAME from SUPERHEROS SH
+        LEFT JOIN TEAMS TE ON (SH.TEAM = TE.ID)
+    </select>
+
+    <select id="getAllByName" resultMap="mapBasic" >
+        SELECT SH.ID,SH.NAME,SH.POWER,TE.ID AS TEAM_ID,TE.NAME AS TEAM_NAME from SUPERHEROS SH
+        LEFT JOIN TEAMS TE ON (SH.TEAM = TE.ID)
+        <where>
+            LOWER(SH.NAME) LIKE LOWER('%' || #{name} || '%')
+        </where>
+    </select>
+
+    <delete id="deleteSuperhero">
+        DELETE FROM SUPERHEROS
         <where>
             ID = #{id}
         </where>
-    </select>
+    </delete>
+
+    <update id="modifySuperhero">
+        UPDATE SUPERHEROS
+            <set>
+                <if test="superhero.nombre != null and superhero.nombre != ''">
+                    NAME = #{superhero.nombre},
+                </if>
+
+                <if test="superhero.poder != null and superhero.poder != ''">
+                    POWER = #{superhero.poder},
+                </if>
+
+                <if test="superhero.equipo != null and superhero.equipo.id != null">
+                    TEAM = #{superhero.equipo.id},
+                </if>
+            </set>
+         WHERE ID = #{superhero.id}
+    </update>
 
     <resultMap id="mapBasic" type="com.corbi.superheromanagement.model.Superhero">
         <id property="id" column="ID"/>
         <result property="nombre" column="NAME"/>
+        <result property="poder" column="POWER"/>
+        <result property="equipo.id" column="TEAM_ID"/>
+        <result property="equipo.nombre" column="TEAM_NAME"/>
     </resultMap>
 </mapper>
