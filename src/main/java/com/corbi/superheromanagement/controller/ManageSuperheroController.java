@@ -18,38 +18,38 @@ public class ManageSuperheroController {
     private ISuperheroManagementService superheroManagementService;
 
     @GetMapping("/getSuperhero/{id}")
-    public SuperheroDTO getSuperHero(@PathVariable int id){
+    public SuperheroDTO getSuperHero(@PathVariable int id) {
         Superhero superhero = superheroManagementService.getSuperheroById(id);
 
         return superheroToDTO(superhero);
     }
 
     @GetMapping("/getAllSuperheros")
-    public List<SuperheroDTO> getAllSuperheros(){
+    public List<SuperheroDTO> getAllSuperheros() {
         List<Superhero> superheros = superheroManagementService.getAll();
         return superheroListToDTOList(superheros);
     }
 
     @GetMapping("/getAllSuperheros/{name}")
-    public List<SuperheroDTO> getAllSuperherosByName(@PathVariable String name){
+    public List<SuperheroDTO> getAllSuperherosByName(@PathVariable String name) {
         List<Superhero> superheros = superheroManagementService.getAllByName(name);
         return superheroListToDTOList(superheros);
     }
 
     @GetMapping("/deleteSuperhero/{id}")
-    public void deleteSuperHero(@PathVariable int id){
+    public void deleteSuperHero(@PathVariable int id) {
         superheroManagementService.deleteSuperhero(id);
     }
 
     @PostMapping(path = "/modifySuperhero", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void modifySuperHero(@RequestBody SuperheroDTO superheroDTO){
+    public void modifySuperHero(@RequestBody SuperheroDTO superheroDTO) {
 
         Superhero superhero = new Superhero();
         superhero.setId(superheroDTO.getId());
         superhero.setNombre(superheroDTO.getName());
         superhero.setPoder(superheroDTO.getPower());
 
-        if(superheroDTO.getTeamId() != null){
+        if (superheroDTO.getTeamId() != null) {
             superhero.setEquipo(new Team());
             superhero.getEquipo().setId(superheroDTO.getTeamId());
         }
@@ -58,7 +58,7 @@ public class ManageSuperheroController {
 
     }
 
-    private SuperheroDTO superheroToDTO(Superhero superhero){
+    private SuperheroDTO superheroToDTO(Superhero superhero) {
         SuperheroDTO superheroDTO = new SuperheroDTO();
         superheroDTO.setId(superhero.getId());
         superheroDTO.setName(superhero.getNombre());
@@ -68,9 +68,9 @@ public class ManageSuperheroController {
         return superheroDTO;
     }
 
-    private List<SuperheroDTO> superheroListToDTOList(List<Superhero> superheros){
+    private List<SuperheroDTO> superheroListToDTOList(List<Superhero> superheros) {
         List<SuperheroDTO> superheroDTOs = new ArrayList<>();
-        for (Superhero superhero:superheros) {
+        for (Superhero superhero : superheros) {
             superheroDTOs.add(superheroToDTO(superhero));
         }
         return superheroDTOs;

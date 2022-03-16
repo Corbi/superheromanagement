@@ -14,25 +14,25 @@ public class SuperheroManagementService implements ISuperheroManagementService {
     @Autowired
     ISuperHeroDao superHeroDao;
 
-    public Superhero getSuperheroById(int id){
+    public Superhero getSuperheroById(int id) {
 
         return superHeroDao.getSuperHeroById(id);
 
     }
 
-    public List<Superhero> getAll(){
+    public List<Superhero> getAll() {
         return superHeroDao.getAll();
     }
 
-    public List<Superhero> getAllByName(String name){
+    public List<Superhero> getAllByName(String name) {
         return superHeroDao.getAllByName(name);
     }
 
-    public void deleteSuperhero(int id){
+    public void deleteSuperhero(int id) {
         superHeroDao.deleteSuperhero(id);
     }
 
-    public void modifySuperheroById(Superhero superhero){
+    public void modifySuperheroById(Superhero superhero) {
         superHeroDao.modifySuperhero(superhero);
     }
 

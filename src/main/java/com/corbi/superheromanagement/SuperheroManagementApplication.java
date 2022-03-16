@@ -8,8 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @MapperScan("com.corbi.superheromanagement.dao")
 public class SuperheroManagementApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SuperheroManagementApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(SuperheroManagementApplication.class, args);
+    }
 
 }
